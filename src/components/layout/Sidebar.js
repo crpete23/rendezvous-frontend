@@ -2,13 +2,6 @@ import React, { Component } from 'react';
 import { Sidebar, Button, Form, Grid, Segment, Label, Menu, Icon } from 'semantic-ui-react'
 import { Route, Redirect, withRouter } from 'react-router-dom'
 
-const noMarginStyle = {
-  margin: '0px'
-}
-const marginTopStyle = {
-  'margin-top': '20px'
-}
-
 export class SidebarHome extends Component {
   state = {
     visible:false
@@ -41,7 +34,7 @@ export class SidebarHome extends Component {
           >
             <Menu.Item as='a' onClick={()=>
               this.props.history.push({
-                pathname: '/'
+                pathname: '/home'
               })
             }>
               <Icon name='home' />

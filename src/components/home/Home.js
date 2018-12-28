@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
-import { Grid } from 'semantic-ui-react'
+import { Grid, Button } from 'semantic-ui-react'
 import { connect } from 'react-redux'
+
+const marginTopStyle = {
+  'height': '70px'
+}
 
 export class Home extends Component {
   state = {
@@ -9,8 +13,13 @@ export class Home extends Component {
 
   render(){
     return (
-      <Grid>
-       <h2>Logged in</h2>
+      <Grid centered id='loginBodyGrid'>
+       <Grid.Row>
+        <h2>Logged in</h2>
+       </Grid.Row>
+       <Grid.Row style={marginTopStyle}>
+        <Button circular />
+       </Grid.Row>
       </Grid>
     );
   }

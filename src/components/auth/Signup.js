@@ -9,6 +9,7 @@ export class Signup extends Component {
   state = {
     firstName: '',
     lastName: '',
+    dob: '',
     email: '',
     password: '',
     verify_password: '',
@@ -23,13 +24,18 @@ export class Signup extends Component {
     })
   }
 
+  formatDate = (date) => {
+    var format = date.split('-')
+    return format[1]+format[2]+format[0]
+  }
+
   signup = async (e) => {
     e.preventDefault()
     let signupErrorArr = []
     if(this.state.password!==this.state.verify_password){
       signupErrorArr.push('Passwords do not match')
     }
-    if(!this.state.firstName || !this.state.lastName || !this.state.email || !this.state.password || !this.state.verify_password){
+    if(!this.state.firstName || !this.state.lastName || !this.state.email || !this.state.password || !this.state.verify_password || !this.state.dob){
       signupErrorArr.push('Missing user information')
     }
     if(signupErrorArr.length){
@@ -42,14 +48,15 @@ export class Signup extends Component {
       return
     }
     const newUser = {
-      doc_first_name : this.state.firstName,
-      doc_last_name : this.state.lastName,
+      first_name : this.state.firstName,
+      last_name : this.state.lastName,
       email: this.state.email,
-      password: this.state.password
+      password: this.state.password,
+      dob: this.formatDate(this.state.dob)
     }
     await this.props.userSignup(newUser)
     if(!this.props.auth.showSignupError){
-      this.props.history.push('./physicianHome')
+      this.props.history.push('./home')
     } else {
       this.setState({
         firstName: '',
@@ -77,6 +84,10 @@ export class Signup extends Component {
               <Form.Field>
                 <label>Last Name</label>
                 <input name="lastName" type="text" placeholder="Last Name" onChange={this.onChange} value={this.state.lastName} />
+              </Form.Field>
+              <Form.Field>
+                <label>Date of Birth</label>
+                <input name="dob" type="date" onChange={this.onChange} value={this.state.dob} />
               </Form.Field>
               <Form.Field>
                 <label>Email</label>
