@@ -3,7 +3,7 @@ import { Switch, Route, Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
-import { Login, Signup, Home, SidebarHome, AuthenticatedRoute, BodyHome } from './components'
+import { Login, Signup, Home, SidebarHome, AuthenticatedRoute, BodyHome, ExerciseHome } from './components'
 
 export class App extends Component {
   render(){
@@ -24,6 +24,10 @@ export class App extends Component {
           <SidebarHome exact path="/body" render={()=>{
             return <AuthenticatedRoute render={
             ()=>{ return <BodyHome />}} />
+          }} />
+          <SidebarHome exact path="/exercise" render={()=>{
+            return <AuthenticatedRoute render={
+            ()=>{ return <ExerciseHome />}} />
           }} />
           <Redirect to="/" />
         </Switch>
