@@ -9,8 +9,8 @@ function getAll(token){
   })
 }
 
-function getDate(token, date){
-  return axios.get(`${BASE_URL}/${date}`, {
+function getId(token, id){
+  return axios.get(`${BASE_URL}/${id}`, {
     headers: {
       'Authorization' :  `Bearer ${token}`
     }
@@ -25,8 +25,8 @@ function createNewBodyLog(token, newLog){
   })
 }
 
-function deleteBodyLog(token, date){
-  return axios.delete(`${BASE_URL}/${date}`, {
+function deleteBodyLog(token, id){
+  return axios.delete(`${BASE_URL}/${id}`, {
     headers: {
       'Authorization' : `Bearer ${token}`
     }
@@ -36,7 +36,7 @@ function deleteBodyLog(token, date){
 
 export default {
   getAll,
-  getDate,
+  getId,
   createNewBodyLog,
   deleteBodyLog
 }

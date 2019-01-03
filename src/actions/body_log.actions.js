@@ -39,11 +39,11 @@ export const postNewBodyLog = (newLog) => {
   }
 }
 
-export const deleteBodyLog = (date) => {
+export const deleteBodyLog = (id) => {
   const token = localStorage.getItem('token')
   return async(dispatch) => {
     try {
-      return bodyModel.deleteBodyLog(token, date)
+      return bodyModel.deleteBodyLog(token, id)
         .then(()=>{
           return bodyModel.getAll(token)
             .then((response)=>{

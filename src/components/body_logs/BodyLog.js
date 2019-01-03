@@ -19,7 +19,7 @@ const BodyLog = ({id, user_id, date, weight, fat_perc, lean, fat, deleteLog}) =>
       <Grid>
         <Grid.Column computer={14} mobile={12}>
           {`Weight: ${weight}, Fat Percent: ${fat_perc}%, lean: ${lean}, fat: ${fat}`}
-          <a onClick={()=>{deleteLog(date)}}>Delete</a>
+          <a onClick={()=>{deleteLog(id)}}>Delete</a>
         </Grid.Column>
       </Grid>
      </List.Content>
