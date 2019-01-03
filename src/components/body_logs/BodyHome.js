@@ -5,6 +5,7 @@ import { bindActionCreators } from 'redux'
 
 import { getAllBodyLogs } from '../../actions/body_log.actions'
 import BodyLogList from './BodyLogList'
+import NewBodyLogForm from './NewBodyLogForm'
 
 const marginTopStyle = {
   'height': '70px'
@@ -12,11 +13,19 @@ const marginTopStyle = {
 
 export class BodyHome extends Component {
   state = {
-
+    form : false
   }
 
   componentDidMount() {
   this.props.getAllBodyLogs()
+}
+
+revealForm = () => {
+  const newVal = !this.state.form;
+  this.setState({
+    ...this.state,
+    form: newVal
+  })
 }
 
   render(){
@@ -27,6 +36,15 @@ export class BodyHome extends Component {
        </Grid.Row>
        <Grid.Row>
          <BodyLogList />
+       </Grid.Row>
+       {this.state.form ?
+         <Grid.Row>
+           <NewBodyLogForm />
+         </Grid.Row> :
+         null
+       }
+       <Grid.Row>
+         <Button onClick={this.revealForm}>New Entry</Button>
        </Grid.Row>
        <Grid.Row style={marginTopStyle}>
         <Button circular />

@@ -17,8 +17,26 @@ function getDate(token, date){
   })
 }
 
+function createNewBodyLog(token, newLog){
+  return axios.post(`${BASE_URL}/`, newLog, {
+    headers: {
+      'Authorization' : `Bearer ${token}`
+    }
+  })
+}
+
+function deleteBodyLog(token, date){
+  return axios.delete(`${BASE_URL}/${date}`, {
+    headers: {
+      'Authorization' : `Bearer ${token}`
+    }
+  })
+}
+
 
 export default {
   getAll,
-  getDate
+  getDate,
+  createNewBodyLog,
+  deleteBodyLog
 }
