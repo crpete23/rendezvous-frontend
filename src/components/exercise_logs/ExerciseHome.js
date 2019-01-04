@@ -3,6 +3,9 @@ import { Grid, Button } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
+import { getAllExerciseLogs } from '../../actions/exercise_log.actions'
+import ExerciseLogList from './ExerciseLogList'
+
 const marginTopStyle = {
   'height': '70px'
 }
@@ -13,7 +16,7 @@ export class ExerciseHome extends Component {
   }
 
   componentDidMount() {
-
+    this.props.getAllExerciseLogs()
   }
 
 revealForm = () => {
@@ -31,7 +34,7 @@ revealForm = () => {
         <h2>Exercise Log</h2>
        </Grid.Row>
        <Grid.Row>
-         <h2>Exercise Logs List</h2>
+         <ExerciseLogList />
        </Grid.Row>
        {this.state.form ?
          <Grid.Row>
@@ -53,12 +56,14 @@ revealForm = () => {
 function mapStateToProps(state){
   return {
     auth: state.auth,
+    exercise_logs: state.exercise_log
   }
 }
 
 function mapDispatchToProps(dispatch){
   return{
+    getAllExerciseLogs: bindActionCreators(getAllExerciseLogs, dispatch)
   }
 }
 
-export default connect(null, null)(ExerciseHome);
+export default connect(mapStateToProps, mapDispatchToProps)(ExerciseHome);
