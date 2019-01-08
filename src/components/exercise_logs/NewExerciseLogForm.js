@@ -3,14 +3,15 @@ import { Button, Form, Segment, List, Message, Input } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
-import { postNewBodyLog } from '../../actions/body_log.actions'
+import { postNewExerciseLog } from '../../actions/exercise_log.actions'
 
-export class NewBodyLogForm extends Component {
+export class NewExerciseLogForm extends Component {
   state = {
+    exercise:'',
     weight:'',
-    fat_perc:'',
-    lean:'',
-    fat:''
+    reps:'',
+    duration:'',
+    rest:''
   }
 
     handleChange = (e) => {
@@ -25,14 +26,18 @@ export class NewBodyLogForm extends Component {
       e.preventDefault();
       let newLog = {...this.state}
       newLog.date = this.today()
+      newLog.time = this.time()
 
-      this.props.postNewBodyLog(newLog)
+      console.log(newLog)
+
+      this.props.postNewExerciseLog(newLog)
 
       this.setState({
+        exercise:'',
         weight:'',
-        fat_perc:'',
-        lean:'',
-        fat:''
+        reps:'',
+        duration:'',
+        rest:''
       })
     }
 
@@ -55,15 +60,25 @@ export class NewBodyLogForm extends Component {
       return today
     }
 
+    time = () => {
+      var now = new Date();
+      var hours = now.getHours();
+      var minutes = now.getMinutes();
+      now = '' + hours + minutes;
+      return now;
+    }
+
   render(){
     return (
     <Form onSubmit={this.submit}>
         <Form.Group widths='equal'>
+          <Form.Field name='exercise' value={this.state.exercise} onChange={this.handleChange} control={Input} label='Exercise' placeholder='Exercise#' />
           <Form.Field name='weight' value={this.state.weight} onChange={this.handleChange} control={Input} label='Weight' placeholder='Weight' />
-          <Form.Field name='fat_perc' value={this.state.fat_perc} onChange={this.handleChange} control={Input} label='Fat Percent' placeholder='Fat Percent' />
-          <Form.Field name='lean' value={this.state.lean} onChange={this.handleChange} control={Input} label='Lean Weight' placeholder='Lean Weight' />
-          <Form.Field name='fat' value={this.state.fat} onChange={this.handleChange} control={Input} label='Fat Weight' placeholder=
-          'Fat Weight' />
+          <Form.Field name='reps' value={this.state.reps} onChange={this.handleChange} control={Input} label='Reps' placeholder='Reps' />
+          <Form.Field name='duration' value={this.state.duration} onChange={this.handleChange} control={Input} label='Duration' placeholder=
+          'Duration' />
+          <Form.Field name='rest' value={this.state.rest} onChange={this.handleChange} control={Input} label='Rest' placeholder=
+          'Rest' />
         </Form.Group>
         <Form.Field control={Button}>Submit</Form.Field>
     </Form>
@@ -73,9 +88,9 @@ export class NewBodyLogForm extends Component {
 
 function mapDispatchToProps(dispatch){
   return{
-    postNewBodyLog: bindActionCreators(postNewBodyLog, dispatch)
+    postNewExerciseLog: bindActionCreators(postNewExerciseLog, dispatch)
   }
 }
 
 
-export default connect(null, mapDispatchToProps)(NewBodyLogForm);
+export default connect(null, mapDispatchToProps)(NewExerciseLogForm);
