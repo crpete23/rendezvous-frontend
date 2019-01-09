@@ -5,6 +5,7 @@ import { bindActionCreators } from 'redux'
 
 import { getAllFoodLogs } from '../../actions/food_log.actions'
 import FoodLogList from './FoodLogList'
+import NewFoodLogForm from './NewFoodLogForm'
 
 const marginTopStyle = {
   'height': '70px'
@@ -38,7 +39,7 @@ revealForm = () => {
        </Grid.Row>
        {this.state.form ?
          <Grid.Row>
-           <h2>Form</h2>
+           <NewFoodLogForm />
          </Grid.Row> :
          null
        }
