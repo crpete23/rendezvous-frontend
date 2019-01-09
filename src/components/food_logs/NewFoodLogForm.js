@@ -61,6 +61,8 @@ export class NewFoodLogForm extends Component {
     }
 
   render(){
+
+    
     return (
     <Form onSubmit={this.submit}>
         <Form.Group widths='equal'>
