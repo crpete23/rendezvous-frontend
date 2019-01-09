@@ -4,10 +4,15 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
 import { postNewFoodLog } from '../../actions/food_log.actions'
+import { getAllMeals } from '../../actions/meal.actions'
 
 export class NewFoodLogForm extends Component {
   state = {
     meal:'',
+  }
+
+  componentDidMount() {
+    this.props.getAllMeals()
   }
 
     handleChange = (e) => {
@@ -61,15 +66,13 @@ export class NewFoodLogForm extends Component {
     }
 
   render(){
+    const mealOptions = this.props.meals.meals.map(meal=> <option key={meal.id} value={meal.id}>{meal.name}</option>)
 
-    
     return (
     <Form onSubmit={this.submit}>
         <Form.Group widths='equal'>
           <Form.Field name='meal' value={this.state.meal} onChange={this.handleChange} control='select' label='Meal' >
-            <option value='1'>1</option>
-            <option value='2'>2</option>
-            <option value='3'>3</option>
+            {mealOptions}
           </Form.Field>
         </Form.Group>
         <Form.Field control={Button}>Submit</Form.Field>
@@ -78,11 +81,18 @@ export class NewFoodLogForm extends Component {
 
 }
 
+function mapStateToProps(state){
+  return {
+    meals: state.meals
+  }
+}
+
 function mapDispatchToProps(dispatch){
   return{
-    postNewFoodLog: bindActionCreators(postNewFoodLog, dispatch)
+    postNewFoodLog: bindActionCreators(postNewFoodLog, dispatch),
+    getAllMeals: bindActionCreators(getAllMeals, dispatch)
   }
 }
 
 
-export default connect(null, mapDispatchToProps)(NewFoodLogForm);
+export default connect(mapStateToProps, mapDispatchToProps)(NewFoodLogForm);
