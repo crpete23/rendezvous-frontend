@@ -29,8 +29,6 @@ export class NewFoodLogForm extends Component {
       newLog.date = this.today()
       newLog.time = this.time()
 
-      console.log(newLog)
-
       this.props.postNewFoodLog(newLog)
 
       this.setState({
@@ -60,7 +58,10 @@ export class NewFoodLogForm extends Component {
     time = () => {
       var now = new Date();
       var hours = now.getHours();
-      var minutes = now.getMinutes();
+      var minutes = now.getMinutes()-10;
+      if (minutes<10) {
+        minutes = '0'+minutes;
+      }
       now = '' + hours + minutes;
       return now;
     }
@@ -72,6 +73,7 @@ export class NewFoodLogForm extends Component {
     <Form onSubmit={this.submit}>
         <Form.Group widths='equal'>
           <Form.Field name='meal' value={this.state.meal} onChange={this.handleChange} control='select' label='Meal' >
+            <option value="" disabled>Select Meal</option>
             {mealOptions}
           </Form.Field>
         </Form.Group>

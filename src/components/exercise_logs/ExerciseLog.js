@@ -12,10 +12,21 @@ const ExerciseLog = ({id, name, type, user_id, date, time, weight, reps, duratio
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
+  function timeToString(time){
+    var min = time%100;
+    var hour = (time%10000-min)/100;
+    var end = hour>11? 'PM' : 'AM';
+    if(hour>12){
+      hour=hour-12;
+    }
+    console.log(time, hour, min, end)
+    return `${hour}:${min} ${end}`
+  }
+
   return (
     <List.Item>
      <List.Content>
-      <List.Header>{dateString + ' at ' + time}</List.Header>
+      <List.Header>{dateString + ' at ' + timeToString(time)}</List.Header>
       <Grid>
         <Grid.Column computer={14} mobile={12}>
           {`Exercise: ${name}, weight: ${weight}, reps: ${reps}, duration: ${duration}, rest: ${rest}`}

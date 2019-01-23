@@ -33,8 +33,6 @@ export class NewExerciseLogForm extends Component {
       newLog.date = this.today()
       newLog.time = this.time()
 
-      console.log(newLog)
-
       this.props.postNewExerciseLog(newLog)
 
       this.setState({
@@ -68,7 +66,10 @@ export class NewExerciseLogForm extends Component {
     time = () => {
       var now = new Date();
       var hours = now.getHours();
-      var minutes = now.getMinutes();
+      var minutes = now.getMinutes()-10;
+      if (minutes<10) {
+        minutes = '0'+minutes;
+      }
       now = '' + hours + minutes;
       return now;
     }
@@ -80,6 +81,7 @@ export class NewExerciseLogForm extends Component {
     <Form onSubmit={this.submit}>
         <Form.Group widths='equal'>
           <Form.Field name='exercise' value={this.state.exercise} onChange={this.handleChange} control='select' label='Exercise' >
+            <option value="" disabled>Select Exercise</option>
             {activityOptions}
           </Form.Field>
           <Form.Field name='weight' value={this.state.weight} onChange={this.handleChange} control={Input} label='Weight' placeholder='Weight' />
