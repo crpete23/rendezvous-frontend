@@ -66,7 +66,7 @@ export class NewExerciseLogForm extends Component {
     time = () => {
       var now = new Date();
       var hours = now.getHours();
-      var minutes = now.getMinutes()-10;
+      var minutes = now.getMinutes();
       if (minutes<10) {
         minutes = '0'+minutes;
       }
