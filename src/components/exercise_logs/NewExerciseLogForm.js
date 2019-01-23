@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
 import { postNewExerciseLog } from '../../actions/exercise_log.actions'
+import { getAllActivities } from '../../actions/activity.actions'
 
 export class NewExerciseLogForm extends Component {
   state = {
@@ -12,6 +13,10 @@ export class NewExerciseLogForm extends Component {
     reps:'',
     duration:'',
     rest:''
+  }
+
+  componentDidMount() {
+    this.props.getAllActivities()
   }
 
     handleChange = (e) => {
@@ -69,10 +74,14 @@ export class NewExerciseLogForm extends Component {
     }
 
   render(){
+    const activityOptions = this.props.activities.activities.map(activity=> <option key={activity.id} value={activity.id}>{activity.name}</option>)
+
     return (
     <Form onSubmit={this.submit}>
         <Form.Group widths='equal'>
-          <Form.Field name='exercise' value={this.state.exercise} onChange={this.handleChange} control={Input} label='Exercise' placeholder='Exercise#' />
+          <Form.Field name='exercise' value={this.state.exercise} onChange={this.handleChange} control='select' label='Exercise' >
+            {activityOptions}
+          </Form.Field>
           <Form.Field name='weight' value={this.state.weight} onChange={this.handleChange} control={Input} label='Weight' placeholder='Weight' />
           <Form.Field name='reps' value={this.state.reps} onChange={this.handleChange} control={Input} label='Reps' placeholder='Reps' />
           <Form.Field name='duration' value={this.state.duration} onChange={this.handleChange} control={Input} label='Duration' placeholder=
@@ -86,11 +95,18 @@ export class NewExerciseLogForm extends Component {
 
 }
 
+function mapStateToProps(state){
+  return {
+    activities: state.activities
+  }
+}
+
 function mapDispatchToProps(dispatch){
   return{
-    postNewExerciseLog: bindActionCreators(postNewExerciseLog, dispatch)
+    postNewExerciseLog: bindActionCreators(postNewExerciseLog, dispatch),
+    getAllActivities: bindActionCreators(getAllActivities, dispatch)
   }
 }
 
 
-export default connect(null, mapDispatchToProps)(NewExerciseLogForm);
+export default connect(mapStateToProps, mapDispatchToProps)(NewExerciseLogForm);
