@@ -16,10 +16,16 @@ const ExerciseLog = ({id, name, type, user_id, date, time, weight, reps, duratio
     var min = time%100;
     var hour = (time%10000-min)/100;
     var end = hour>11? 'PM' : 'AM';
+
+    if(min<10){
+      min='0'+min;
+    }
+
     if(hour>12){
       hour=hour-12;
+    } else if (hour===0){
+      hour=12;
     }
-    console.log(time, hour, min, end)
     return `${hour}:${min} ${end}`
   }
 
