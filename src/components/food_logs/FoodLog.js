@@ -31,14 +31,14 @@ function timeToString(time){
 
   return (
     <List.Item>
+    <List.Content floated='right'>
+      <a onClick={()=>{deleteLog(id)}}>Delete</a>
+    </List.Content>
      <List.Content>
-      <List.Header>{dateString + ' at ' + timeToString(time)}</List.Header>
-      <Grid>
-        <Grid.Column computer={14} mobile={12}>
+      <List.Header>{timeToString(time)}</List.Header>
+      <List.Description>
           {`Meal: ${name}, calories: ${calories}, protein: ${protein}, carbs: ${carbs}, fat: ${fat}, PUFAs: ${PUFAs}`}
-          <a onClick={()=>{deleteLog(id)}}>Delete</a>
-        </Grid.Column>
-      </Grid>
+      </List.Description>
      </List.Content>
    </List.Item>
   )
