@@ -21,15 +21,33 @@ class DateList extends Component {
   }
 
   render() {
+    let totals = this.props.logs.reduce(function(totals, log){
+      totals.calories+=log.calories;
+      totals.protein+=log.protein;
+      totals.carbs+=log.carbs;
+      totals.fat+=log.fat;
+      totals.PUFAs+=log.PUFAs;
+      return totals
+    },{
+      calories:0,
+      protein:0,
+      carbs:0,
+      fat:0,
+      PUFAs:0
+    })
+
     let logList = this.props.logs.map(log => <FoodLog key={log.id} {...log} />)
 
     let date = this.dateToString(this.props.date)
 
     return (
       <List.Item>
-      {date}
+      <b>{date}</b>
       <List.Content floated='right'>
         <Icon onClick={()=>this.revealList()} name="bars" />
+      </List.Content>
+      <List.Content>
+        {`Daily Totals: calories ${totals.calories}, protein ${totals.protein}, carbs ${totals.carbs}, fat ${totals.fat}, PUFAs ${totals.PUFAs}`}
       </List.Content>
         {this.state.open ? <List.List className="textAlignLeft">
           {logList}
