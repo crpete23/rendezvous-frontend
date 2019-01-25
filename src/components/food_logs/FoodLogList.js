@@ -2,7 +2,6 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import { List } from 'semantic-ui-react'
 
-import FoodLog from './FoodLog'
 import DateList from './DateList'
 
 class FoodLogList extends Component {
